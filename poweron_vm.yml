@@ -5,34 +5,11 @@
 - name: "Power on VM"
   hosts: localhost
   gather_facts: no
-
-  vars_prompt:
-    - name: vcenter_ip
-      prompt: vCenter IP or hostname
-      private: no
-
-    - name: vcenter_username
-      prompt: vCenter username
-      private: no
-
-    - name: vcenter_password
-      prompt: vCenter password
-      private: yes
-
-    - name: datacenter
-      prompt: VMWare datacenter
-      private: no
-
-    - name: vm_name
-      prompt: VM Name
-      private: no
-
+  
   tasks:
   - name: "Get VM info"
-    community.vmware.vmware_guest_info:
+    community.vmware.vmware_guest_vinfo:
       hostname: "{{ vcenter_ip }}"
-      username: "{{ vcenter_username }}"
-      password: "{{ vcenter_password }}"
       validate_certs: False
       datacenter: "{{ datacenter }}"
       name: "{{ vm_name }}"
@@ -49,8 +26,6 @@
       - name: "Power on VM"
         community.vmware.vmware_guest_powerstate:
           hostname: "{{ vcenter_ip }}"
-          username: "{{ vcenter_username }}"
-          password: "{{ vcenter_password }}"
           validate_certs: False
           uuid: "{{ vm_info.instance.hw_product_uuid }}"
           state: powered-on
