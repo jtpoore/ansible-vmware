@@ -8,7 +8,7 @@
   
   tasks:
   - name: "Get VM info"
-    community.vmware.vmware_guest_vinfo:
+    community.vmware.vmware_guest_info:
       hostname: "{{ vcenter_ip }}"
       validate_certs: False
       datacenter: "{{ datacenter }}"
